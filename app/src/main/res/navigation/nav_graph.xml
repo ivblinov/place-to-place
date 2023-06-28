@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/screen0StartPoit">
+
+    <fragment
+        android:id="@+id/screen1SignUp"
+        android:name="com.example.placetoplace.Screen1SignUp"
+        android:label="fragment_screen1_sign_up"
+        tools:layout="@layout/fragment_screen1_sign_up" />
+    <fragment
+        android:id="@+id/screen3Main"
+        android:name="com.example.placetoplace.Screen3Main"
+        android:label="fragment_screen3_main"
+        tools:layout="@layout/fragment_screen3_main" />
+    <fragment
+        android:id="@+id/screen0StartPoit"
+        android:name="com.example.placetoplace.Screen0StartPoit"
+        android:label="fragment_screen0_start_poit"
+        tools:layout="@layout/fragment_screen0_start_poit" >
+        <action
+            android:id="@+id/action_screen0StartPoit_to_screen1SignUp"
+            app:destination="@id/screen1SignUp" />
+        <action
+            android:id="@+id/action_screen0StartPoit_to_screen3Main"
+            app:destination="@id/screen3Main" />
+    </fragment>
+</navigation>

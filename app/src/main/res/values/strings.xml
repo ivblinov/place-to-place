@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PlaceToPlace</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_name">Ваше имя:</string>
+    <string name="enter_password">Введите пароль:</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="email">Введите ваш email:</string>
+    <string name="add_your_kindergarten">Добавьте адрес вашего детсада:</string>
+    <string name="not_chosen">Не выбран..</string>
+    <string name="add_address_for_replace">добавьте адрес для замены</string>
+    <string name="sign_in">Войти</string>
+    <string name="name_for_start">Place\nTo\nPlace</string>
+</resources>

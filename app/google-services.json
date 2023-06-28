@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "758318548822",
+    "firebase_url": "https://placetoplaceproject-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "placetoplaceproject",
+    "storage_bucket": "placetoplaceproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758318548822:android:fdc0706fbd29c537e378f7",
+        "android_client_info": {
+          "package_name": "com.example.placetoplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758318548822-94crd6mbme331uvr57n46fm2d0qb8esb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpNokQ3qYjvXG2w6_MZgCh6mzaK-8Nz70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758318548822-94crd6mbme331uvr57n46fm2d0qb8esb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
