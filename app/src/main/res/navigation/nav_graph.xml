@@ -12,12 +12,12 @@
         tools:layout="@layout/fragment_screen1_sign_up" />
     <fragment
         android:id="@+id/screen3Main"
-        android:name="com.example.placetoplace.Screen3Main"
+        android:name="com.example.placetoplace.ui.menu.Screen3Main"
         android:label="fragment_screen3_main"
         tools:layout="@layout/fragment_screen3_main" />
     <fragment
         android:id="@+id/screen0StartPoit"
-        android:name="com.example.placetoplace.Screen0StartPoit"
+        android:name="com.example.placetoplace.Screen0StartPoint"
         android:label="fragment_screen0_start_poit"
         tools:layout="@layout/fragment_screen0_start_poit" >
         <action

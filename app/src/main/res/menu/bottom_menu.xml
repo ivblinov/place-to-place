@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/add_my_ad"
+        android:icon="@drawable/ic_bookmark_added_24"
+        android:title="Моё место"
+        android:orderInCategory="1"
+        />
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/ic_filter_24"
+        android:title="Фильтр"
+        android:orderInCategory="2" />
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/ic_map_24"
+        android:title="Карта"
+        android:orderInCategory="3" />
+
+    <item
+        android:id="@+id/chats"
+        android:icon="@drawable/ic_chat_24"
+        android:title="Чаты"
+        android:orderInCategory="4" />
+</menu>

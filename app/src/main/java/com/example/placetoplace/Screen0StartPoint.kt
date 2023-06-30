@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.placetoplace.databinding.FragmentScreen0StartPoitBinding
 import com.example.placetoplace.states.StateUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -24,13 +23,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Screen0StartPoit.newInstance] factory method to
+ * Use the [Screen0StartPoint.newInstance] factory method to
  * create an instance of this fragment.
  */
 
 private const val TAG = "MyLog"
 
-class Screen0StartPoit : Fragment() {
+class Screen0StartPoint : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -113,7 +112,7 @@ class Screen0StartPoit : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Screen0StartPoit().apply {
+            Screen0StartPoint().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

@@ -2,22 +2,36 @@ package com.example.placetoplace
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import com.example.placetoplace.databinding.ActivityMainBinding
+import com.example.placetoplace.ui.menu.ChatsScreen
+import com.example.placetoplace.ui.menu.FilterScreen
+import com.example.placetoplace.ui.menu.MapScreen
+import com.example.placetoplace.ui.menu.Screen3Main
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 
 private const val TAG = "MyLog"
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.idBottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.add_my_ad -> switching(Screen3Main())
+                R.id.filter -> switching(FilterScreen())
+                R.id.map -> switching(MapScreen())
+                R.id.chats -> switching(ChatsScreen())
+            }
+            true
+        }
+
+
 
         // Write a message to the database
 /*        val database = Firebase.database
@@ -70,6 +84,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun switching(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.nav_host, fragment)
+        }
     }
 }
 

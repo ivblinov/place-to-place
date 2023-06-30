@@ -10,4 +10,7 @@
     <string name="add_address_for_replace">добавьте адрес для замены</string>
     <string name="sign_in">Войти</string>
     <string name="name_for_start">Place\nTo\nPlace</string>
+    <string name="my_place">Мой детсад:</string>
+    <string name="city">Город:</string>
+    <string name="city2">Город</string>
 </resources>

@@ -3,17 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
-    tools:context=".Screen0StartPoint">
+    tools:context=".ui.menu.FilterScreen">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="80sp"
-        android:textAlignment="center"
-        android:background="@android:color/transparent"
-        android:text="@string/name_for_start"
-        android:gravity="center"/>
+        android:text="filter" />
 
 </FrameLayout>
