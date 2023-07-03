@@ -10,7 +10,12 @@
     <string name="add_address_for_replace">добавьте адрес для замены</string>
     <string name="sign_in">Войти</string>
     <string name="name_for_start">Place\nTo\nPlace</string>
-    <string name="my_place">Мой детсад:</string>
+    <string name="my_place">Адрес моего садика:</string>
     <string name="city">Город:</string>
     <string name="city2">Город</string>
+    <string name="number">Номер садика </string>
+    <string name="street">Улица</string>
+    <string name="house">Дом</string>
+    <string name="address_wish_garden">Адрес желаемого садика:</string>
+    <string name="save">сохранить</string>
 </resources>

@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.placetoplace.PlaceViewModel
 import com.example.placetoplace.databinding.FragmentScreen3MainBinding
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +33,8 @@ class Screen3Main : Fragment() {
 
     private var _binding: FragmentScreen3MainBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: PlaceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +58,26 @@ class Screen3Main : Fragment() {
 
         binding.cityEditText.doOnTextChanged { text, _, _, _ ->
             binding.resultCity.text = text
+        }
+
+        binding.buttonSave.setOnClickListener {
+            val city = binding.cityEditText.text.toString()
+            val number = binding.numberEditText.text.toString()
+            val street = binding.streetEditText.text.toString()
+            val house = binding.houseEditText.text.toString()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onSave(city, number, street, house)
+            }
+        }
+
+        binding.buttonSaveWish.setOnClickListener {
+            val city = binding.cityEditTextWish.text.toString()
+            val number = binding.numberEditTextWish.text.toString()
+            val street = binding.streetEditTextWish.text.toString()
+            val house = binding.houseEditTextWish.text.toString()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onSaveWish(city, number, street, house)
+            }
         }
 
 /*        binding.buttonMyAddress.setOnClickListener {

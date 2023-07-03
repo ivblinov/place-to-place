@@ -77,20 +77,14 @@ class Screen0StartPoint : Fragment() {
             val email = it.email
             val photoUrl = it.photoUrl
 
-            Log.d(TAG, "Screen0: name = $name, email = $email, photoUrl = $photoUrl")
-
             // Check if user's email is verified
             val emailVerified = it.isEmailVerified
-
-            Log.d(TAG, "Screen0: emailVerified = $emailVerified")
 
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
             val uid = it.uid
-
-            Log.d(TAG, "Screen0: uid = $uid")
         }
 
     }

@@ -31,28 +31,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
-
-        // Write a message to the database
-/*        val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.setValue("Hi")*/
-
-
-/*        database = Firebase.database.reference
-        database.child("users").child("username").setValue("Maria")
-        database.child("users").child("userlastname").push().setValue("Ivanova")
-        database.child("users").child("userage").setValue(21)*/
-
-
-
-
-
-
-
-
-
         // Read from the database
 /*        myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
