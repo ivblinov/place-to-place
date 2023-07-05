@@ -56,6 +56,10 @@ class Screen3Main : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isMyPlaceAndPlaceWished()
+        }
+
         binding.cityEditText.doOnTextChanged { text, _, _, _ ->
             binding.resultCity.text = text
         }

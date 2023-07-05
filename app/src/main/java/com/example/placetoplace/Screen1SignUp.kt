@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.placetoplace.databinding.FragmentScreen1SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,7 +65,9 @@ class Screen1SignUp : Fragment() {
         binding.buttonSignUp.setOnClickListener {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-            viewModel.onClick(email, password)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onClick(email, password)
+            }
         }
         Log.d(TAG, "onViewCreated: ")
 
