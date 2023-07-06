@@ -10,6 +10,7 @@ import com.example.placetoplace.states.StateUser
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -24,18 +25,16 @@ import kotlinx.coroutines.flow.asStateFlow
 private const val TAG = "MyLog"
 
 class PlaceViewModel : ViewModel() {
-
-    init {
-        Log.d(TAG, "init: ")
-    }
+    var myPlace = false
+    var placeWished = false
 
     private val _stateUser = MutableStateFlow<StateUser>(StateUser.IsNotUser)
     val stateUser = _stateUser.asStateFlow()
 
     private var auth = Firebase.auth
     private val user = auth.currentUser
-
     private val database: DatabaseReference = Firebase.database.reference
+    private val userReference = database.child(USERS).child(user?.uid ?: "нет uid")
 
     fun checkUser() {
         viewModelScope.launch {
@@ -54,12 +53,14 @@ class PlaceViewModel : ViewModel() {
     }
 
     fun onSave(city: String, number: String, street: String, house: String) {
-        database.child(CITIES).child(city).child(number).child(MY_PLACE).child(user?.uid ?: "нет uid").setValue(true)
+        database.child(CITIES).child(city).child(number).child(MY_PLACE)
+            .child(user?.uid ?: "нет uid").setValue(true)
         database.child(USERS).child(user?.uid ?: "нет uid").child(MY_PLACE).setValue(true)
     }
 
     fun onSaveWish(city: String, number: String, street: String, house: String) {
-        database.child(CITIES).child(city).child(number).child(PLACE_WISHED).child(user?.uid ?: "нет uid").setValue(true)
+        database.child(CITIES).child(city).child(number).child(PLACE_WISHED)
+            .child(user?.uid ?: "нет uid").setValue(true)
         database.child(USERS).child(user?.uid ?: "нет uid").child(PLACE_WISHED).setValue(true)
     }
 
@@ -67,35 +68,23 @@ class PlaceViewModel : ViewModel() {
 
     }
 
-    private val userReference = database.child(USERS).child(user?.uid ?: "нет uid")
-    var incrementUser = 0
-
     fun isMyPlaceAndPlaceWished() {
         val userListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userPlaces = snapshot.getValue<UserPlaces>()
-                Log.d(TAG, "changes - $userPlaces")
-                Log.d(TAG, "incrementUser = ${incrementUser++}")
-                if (userPlaces != null) {
-                    Log.d(TAG, "myPlace = ${userPlaces.myPlace}")
-                    Log.d(TAG, "placeWished = ${userPlaces.placeWished}")
+                myPlace = snapshot.child(MY_PLACE).value.toString().toBoolean()
+                placeWished = snapshot.child(PLACE_WISHED).value.toString().toBoolean()
+
+                if (myPlace && placeWished) {
+                    Log.d(TAG, "запускаем функцию searchForMatches")
                 }
-                Log.d(TAG, "")
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Log.d(TAG, "onCancelled: $error")
             }
         }
         userReference.addValueEventListener(userListener)
     }
-
-//    myRef.setValue("Hi")
-
-/*    database.child("users").child("username").setValue("Maria")
-    database.child("users").child("userlastname").push().setValue("Ivanova")
-    database.child("users").child("userage").setValue(21)*/
-
-
 
 /*    private fun validateForm(email: String, password: String): Boolean {
         var valid = true
@@ -145,7 +134,6 @@ class PlaceViewModel : ViewModel() {
                 }
             }
     }
-
 
 
     override fun onCleared() {
