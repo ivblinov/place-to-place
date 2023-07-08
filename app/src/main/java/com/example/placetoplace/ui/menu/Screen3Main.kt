@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.placetoplace.PlaceViewModel
+import com.example.placetoplace.data.UserInfo
 import com.example.placetoplace.databinding.FragmentScreen3MainBinding
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.CoroutineScope
@@ -70,7 +71,7 @@ class Screen3Main : Fragment() {
             val street = binding.streetEditText.text.toString()
             val house = binding.houseEditText.text.toString()
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onSave(city, number, street, house)
+                viewModel.onSave(city, number, street, house, MY_PLACE)
             }
         }
 
@@ -80,7 +81,7 @@ class Screen3Main : Fragment() {
             val street = binding.streetEditTextWish.text.toString()
             val house = binding.houseEditTextWish.text.toString()
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onSaveWish(city, number, street, house)
+                viewModel.onSave(city, number, street, house, PLACE_WISHED)
             }
         }
 
@@ -102,6 +103,10 @@ class Screen3Main : Fragment() {
     }
 
     companion object {
+
+        const val MY_PLACE = "my_place"
+        const val PLACE_WISHED = "place_wished"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -3,10 +3,13 @@ package com.example.placetoplace
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.example.placetoplace.data.User
+import com.example.placetoplace.data.UserInfo
 import com.example.placetoplace.data.UserPlaces
 import com.example.placetoplace.states.StateUser
+import com.example.placetoplace.ui.menu.Screen3Main
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -27,6 +30,7 @@ private const val TAG = "MyLog"
 class PlaceViewModel : ViewModel() {
     var myPlace = false
     var placeWished = false
+    var myPlaceList = mutableMapOf <String, MutableList<String>>()
 
     private val _stateUser = MutableStateFlow<StateUser>(StateUser.IsNotUser)
     val stateUser = _stateUser.asStateFlow()
@@ -52,20 +56,57 @@ class PlaceViewModel : ViewModel() {
         createAccount(email, password)
     }
 
-    fun onSave(city: String, number: String, street: String, house: String) {
-        database.child(CITIES).child(city).child(number).child(MY_PLACE)
+    fun onSave(city: String, number: String, street: String, house: String, place: String) {
+        database.child(CITIES)
+            .child(city)
+            .child(place)
+            .child(number)
             .child(user?.uid ?: "нет uid").setValue(true)
-        database.child(USERS).child(user?.uid ?: "нет uid").child(MY_PLACE).setValue(true)
+        database.child(USERS).child(user?.uid ?: "нет uid").child(place).setValue(true)
+        if (place == MY_PLACE)
+            UserInfo.currentCity = city
+        else {
+            UserInfo.wishedCity = city
+        }
     }
 
-    fun onSaveWish(city: String, number: String, street: String, house: String) {
-        database.child(CITIES).child(city).child(number).child(PLACE_WISHED)
-            .child(user?.uid ?: "нет uid").setValue(true)
-        database.child(USERS).child(user?.uid ?: "нет uid").child(PLACE_WISHED).setValue(true)
+    // My top posts by number of stars
+/*    myTopPostsQuery.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (postSnapshot in dataSnapshot.children) {
+                // TODO: handle the post
+            }
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            // ...
+        }
+    })*/
+
+    fun getPlaces(city: String?) {
+        if (city != null) {
+            database.child(CITIES).child(city).get().addOnSuccessListener {
+                it.children.forEach {dataSnapshot ->
+                    if (dataSnapshot.key == MY_PLACE) {
+                        dataSnapshot.children.forEach {item ->
+                            myPlaceList = mutableMapOf()
+                            myPlaceList[item.key.toString()] = mutableListOf()
+                            myPlaceList[item.key.toString()]?.add(item.value.toString())
+                        }
+                    }
+                }
+                searchForMatches()
+            }.addOnFailureListener { Log.e(TAG, "Error: $it", ) }
+        } else {
+            Log.d(TAG, "getPlaces: Город не указан")
+        }
     }
 
     fun searchForMatches() {
-
+        Log.d(TAG, "searchForMatches: алгоритм поиска")
+        Log.d(TAG, "searchForMatches: ${myPlaceList.keys}")
     }
 
     fun isMyPlaceAndPlaceWished() {
@@ -76,6 +117,11 @@ class PlaceViewModel : ViewModel() {
 
                 if (myPlace && placeWished) {
                     Log.d(TAG, "запускаем функцию searchForMatches")
+                    viewModelScope.launch {
+                        getPlaces(UserInfo.currentCity)
+/*                        if (UserInfo.currentCity != UserInfo.wishedCity)
+                            getPlaces(UserInfo.wishedCity)*/
+                    }
                 }
             }
 
