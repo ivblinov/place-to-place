@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.example.placetoplace.data.PlacesInfo
 import com.example.placetoplace.data.User
 import com.example.placetoplace.data.UserInfo
 import com.example.placetoplace.data.UserPlaces
@@ -31,6 +32,7 @@ class PlaceViewModel : ViewModel() {
     var myPlace = false
     var placeWished = false
     var myPlaceList = mutableMapOf <String, MutableList<String>>()
+    var placeWishedList = mutableMapOf <String, MutableList<String>>()
 
     private val _stateUser = MutableStateFlow<StateUser>(StateUser.IsNotUser)
     val stateUser = _stateUser.asStateFlow()
@@ -70,30 +72,27 @@ class PlaceViewModel : ViewModel() {
         }
     }
 
-    // My top posts by number of stars
-/*    myTopPostsQuery.addValueEventListener(object : ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot) {
-            for (postSnapshot in dataSnapshot.children) {
-                // TODO: handle the post
-            }
-        }
-
-        override fun onCancelled(databaseError: DatabaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
-            // ...
-        }
-    })*/
-
-    fun getPlaces(city: String?) {
+/*    fun getPlaces(city: String?) {
         if (city != null) {
             database.child(CITIES).child(city).get().addOnSuccessListener {
                 it.children.forEach {dataSnapshot ->
-                    if (dataSnapshot.key == MY_PLACE) {
-                        dataSnapshot.children.forEach {item ->
-                            myPlaceList = mutableMapOf()
-                            myPlaceList[item.key.toString()] = mutableListOf()
-                            myPlaceList[item.key.toString()]?.add(item.value.toString())
+                    when (dataSnapshot.key) {
+                        MY_PLACE -> {
+                            dataSnapshot.children.forEach { item ->
+                                myPlaceList[item.key.toString()] = mutableListOf()
+                                myPlaceList[item.key.toString()]?.add(item.value.toString())
+                            }
+                        }
+                        PLACE_WISHED -> {
+                            dataSnapshot.children.forEach { item ->
+                                placeWishedList[item.key.toString()] = mutableListOf()
+                                val valueItem = item.value.let {valueItem ->
+                                    valueItem.let { it1 ->
+                                        it1.toString()
+                                    }
+                                }
+                                placeWishedList[item.key.toString()]?.add(valueItem)
+                            }
                         }
                     }
                 }
@@ -102,11 +101,31 @@ class PlaceViewModel : ViewModel() {
         } else {
             Log.d(TAG, "getPlaces: Город не указан")
         }
+    }*/
+
+    fun getPlaces(city: String?) {
+        if (city != null) {
+            database.child(CITIES).child(city).get().addOnSuccessListener {
+                val placesInfo = it.getValue<PlacesInfo>()
+                Log.d(TAG, "getPlaces: $placesInfo")
+                searchForMatches()
+            }.addOnFailureListener { Log.e(TAG, "Error: $it", ) }
+        } else {
+            Log.d(TAG, "getPlaces: Город не указан")
+        }
     }
 
     fun searchForMatches() {
-        Log.d(TAG, "searchForMatches: алгоритм поиска")
-        Log.d(TAG, "searchForMatches: ${myPlaceList.keys}")
+/*        Log.d(TAG, "searchForMatches: алгоритм поиска")
+        Log.d(TAG, "searchForMatches size: ${myPlaceList.size}")
+        Log.d(TAG, "searchForMatches keys: ${myPlaceList.keys}")
+        Log.d(TAG, "searchForMatches size wished: ${placeWishedList.size}")
+        Log.d(TAG, "searchForMatches keys wished: ${placeWishedList.keys}")
+        Log.d(TAG, "searchForMatches: value = ${myPlaceList.values}")
+        Log.d(TAG, "searchForMatches: value wished = ${placeWishedList.values}")
+        Log.d(TAG, "searchForMatches: value of key = ${myPlaceList["1"]}")*/
+
+        Log.d(TAG, "searchForMatches: pl")
     }
 
     fun isMyPlaceAndPlaceWished() {
