@@ -1,15 +1,15 @@
 ## Place to place
 
-## Description:
+## Описание:
 <p>  
-  Placetoplace app helps people who want to change places in a kindergarten find a friend of a friend.
+  Placetoplace помогает людям, которые хотят поменяться местами в детском саду, найти друга друга.
 </p>
 </br>
 
-## Stack of the technology:
+## Стек технологий:
 
-- kotlin
-- architecture - MVVM, viewmodel
-- db - Firebase Realtime Database
-- asynchronous - coroutines
-- navigation - androidx-navigation
+- язык - kotlin
+- архитектура - MVVM, viewmodel
+- база данных - Firebase Realtime Database
+- реализация многопоточности и асинхронности - coroutines
+- навигация - androidx-navigation, fragments и bottom navigation
